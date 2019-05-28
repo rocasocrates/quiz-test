@@ -14,5 +14,6 @@ Casos especiales:
 - Si un usuario se registra y luego no paga, el usuario no podrá registrarse de nuevo y tampoco podrá pagar (No hace falta contemplar este caso ya que no hay proceso de login).
 
 * Los recursos para la maquetación están dentro de la carpeta assets_register
+* Tener en cuenta que hay que añadir los Migrations para crear la base de datos.
 
 
