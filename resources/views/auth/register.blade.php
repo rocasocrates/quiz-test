@@ -73,7 +73,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3"><img src={{asset('assets_register/henry-be-803712-unsplash.jpg')}} width="200" height="400"></div>
+        <div class="col-md-3"><img src={{asset('assets_register/henry-be-803712-unsplash.jpg')}} width="300" height="478"></div>
     </div>
 
 
