@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="72px" height="72px" viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 55 (78076) - https://sketchapp.com -->
+    <title>check-circle</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="website" transform="translate(-480.000000, -936.000000)" fill="#0F86C8" fill-rule="nonzero">
+            <g id="register-ok" transform="translate(320.000000, 783.000000)">
+                <g id="check-circle" transform="translate(160.000000, 153.000000)">
+                    <path d="M36,-4.4408921e-16 C45.5477936,3.55271368e-16 54.7045345,3.79284625 61.4558441,10.5441559 C68.2071537,17.2954655 72,26.4522064 72,36 C72,55.882251 55.882251,72 36,72 C26.4522064,72 17.2954655,68.2071537 10.5441559,61.4558441 C3.79284625,54.7045345 3.55271368e-16,45.5477936 -4.4408921e-16,36 C-5.24025268e-15,26.4522064 3.79284625,17.2954655 10.5441559,10.5441559 C17.2954655,3.79284625 26.4522064,1.15463195e-15 36,-4.4408921e-16 L36,-4.4408921e-16 Z M32.4,52.2 L57.6,27 L52.524,21.924 L32.4,42.012 L21.276,30.924 L16.2,36 L32.4,52.2 Z" id="Shape"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

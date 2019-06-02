@@ -11,6 +11,16 @@
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
-});
+});*/
+
+Auth::routes();
+
+Route::get('/', 'HomeController@index')->name('home');
+
+Route::get('payment', 'HomeController@payment');
+
+Route::post('payment', 'HomeController@subscription');
+
+Route::get('/register/verify/{code}', 'GuestController@verify');
