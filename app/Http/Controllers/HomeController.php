@@ -26,9 +26,9 @@ class HomeController extends Controller
         return view('payment');
     }
 
-    /*public function payment(){
+    public function payment(){
         return view('payment');
-    }*/
+    }
     public function subscription(Request $request){
 
         //una clave para identificar al usuario y su medio de pago en stripe

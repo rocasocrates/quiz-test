@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
 
 class GuestController extends Controller
 {
@@ -87,7 +88,7 @@ class GuestController extends Controller
         $user = User::where('confirmation_code', $code)->first();
 
         if (! $user)
-            return redirect('/');
+            return redirect('/home');
 
         $user->confirmed = true;
         $user->confirmation_code = null;
