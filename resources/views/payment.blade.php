@@ -14,6 +14,7 @@
                         <h2>No me hagas pensar. Una aproximación a la usabilidad en la web</h2>&nbsp;<b>15€</b>
                         <h2> me hagas pensar. Una aproximación a la usabilidad en la web</h2>&nbsp;<b>15€</b>
                     </div>
+                    <h2>Total</h2>
                 </div>
             </div>
             <p>Número de tarjeta</p>
