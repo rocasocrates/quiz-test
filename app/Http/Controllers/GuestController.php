@@ -30,7 +30,7 @@ class GuestController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -41,7 +41,7 @@ class GuestController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -52,7 +52,7 @@ class GuestController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -63,8 +63,8 @@ class GuestController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -75,7 +75,7 @@ class GuestController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -87,14 +87,21 @@ class GuestController extends Controller
     {
         $user = User::where('confirmation_code', $code)->first();
 
-        if (! $user)
+        if (!$user) {
+
             return redirect('/home');
 
-        $user->confirmed = 1;
-        $user->confirmation_code = null; //ya no se va a usar mas por eso lo ponemos a null.
-        $user->save();
+        } else {
 
-        return redirect('/home')->with('notification', 'Has confirmado correctamente tu correo!');
-       //return redirect('correcto');
+            $user->confirmed = true;
+            $user->confirmation_code = null; //ya no se va a usar mas por eso lo ponemos a null.
+            $user->save();
+             return redirect('/home')->with('confirmation', 'Has confirmado correctamente tu correo!');
+            //     return redirect()->route('/home/', ['notification'=>'Has confirmado correctamente tu correo!']);
+            //return view('home')->with('notification', ['nota' => 'Has confirmado correctamente tu correo!']);
+        }
+
+
+        //return redirect('correcto');
     }
 }
