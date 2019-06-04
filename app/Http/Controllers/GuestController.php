@@ -90,10 +90,11 @@ class GuestController extends Controller
         if (! $user)
             return redirect('/home');
 
-        $user->confirmed = true;
-        $user->confirmation_code = null;
+        $user->confirmed = 1;
+        $user->confirmation_code = null; //ya no se va a usar mas por eso lo ponemos a null.
         $user->save();
 
         return redirect('/home')->with('notification', 'Has confirmado correctamente tu correo!');
+       //return redirect('correcto');
     }
 }

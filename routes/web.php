@@ -27,3 +27,8 @@ Route::get('payment', 'HomeController@payment');
 Route::post('payment', 'HomeController@subscription');
 
 Route::get('/register/verify/{code}', 'GuestController@verify');
+
+Route::get('/correcto', function(){
+
+    return "confirmado correo";
+});

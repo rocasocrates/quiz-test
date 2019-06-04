@@ -17,6 +17,11 @@
                             {{ session('status') }}
                         </div>
                     @endif
+                        @if (session('confirmation'))
+                            <div class="alert alert-success">
+                                <h1>{{ session('confirmation') }}</h1>
+                            </div>
+                        @endif
 
                    Bienvenido a BookStore. Ya puedes acceder <br>a tu catálogo personalizado de libros.<br><br>
                         <form class="form-horizontal" method="GET" action="/payment">
