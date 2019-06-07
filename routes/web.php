@@ -14,7 +14,7 @@
 /*Route::get('/', function () {
     return view('welcome');
 });*/
-
+Use Illuminate\Http\Request;
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
@@ -23,8 +23,23 @@ Route::get('/home', function () {
 });
 
 Route::get('payment', 'HomeController@payment');
-
-Route::post('payment', 'HomeController@subscription');
+Route::post ( 'payment/', function (Request $request) {
+    Stripe\Stripe::setApiKey ( 'test_SecretKey' );
+    try {
+        Stripe\Charge::create ( array (
+            "amount" => 300 * 100,
+            "currency" => "usd",
+            "source" => $request->input ( 'stripeToken' ), // obtained with Stripe.js
+            "description" => "Test payment."
+        ) );
+        Session::flash ( 'success-message', 'Payment done successfully !' );
+        return Redirect::back ();
+    } catch ( Exception $e ) {
+        Session::flash ( 'fail-message', "Error! Please Try again." );
+        return Redirect::back ();
+    }
+} );
+//Route::post('payment', 'HomeController@subscription');
 
 Route::get('/register/verify/{code}', 'GuestController@verify');
 
@@ -32,3 +47,5 @@ Route::get('/correcto', function(){
 
     return "confirmado correo";
 });
+
+Route::get('/exists', 'GuestController@exists');

@@ -5,6 +5,9 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
+
+                <div><img src={{asset('assets_register/logo.svg')}} width="200" height="100" class="center-block"></div>
+
                 <div class="panel-heading">Login</div>
 
                 <div class="panel-body">

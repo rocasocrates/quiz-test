@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use http\Env\Response;
 use Illuminate\Http\Request;
 use App\User;
 
@@ -97,11 +98,30 @@ class GuestController extends Controller
             $user->confirmation_code = null; //ya no se va a usar mas por eso lo ponemos a null.
             $user->save();
              return redirect('/home')->with('confirmation', 'Has confirmado correctamente tu correo!');
-            //     return redirect()->route('/home/', ['notification'=>'Has confirmado correctamente tu correo!']);
-            //return view('home')->with('notification', ['nota' => 'Has confirmado correctamente tu correo!']);
+
         }
 
 
         //return redirect('correcto');
     }
+
+    public function exists(Request $email)
+    {
+        $user = User::where('email', $email['email'])->first();
+
+        if ($user) {
+
+            return response()->json([
+
+                'email' => 'Ya está registrado este correo.'
+            ]);
+
+        }
+        return response()->json([
+
+            'email' => ''
+        ]);
+
+    }
+
 }

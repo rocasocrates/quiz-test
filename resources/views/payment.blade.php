@@ -1,50 +1,120 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 col-md-offset-1">
-                <div class="panel panel-default">
-                    <div><img src={{asset('assets_register/logo.svg')}} width="200" height="100"></div>
-                    <div class="panel-heading">Pedido #000000</div>
-
-                    <div class="panel-body">
-
-                        <h2>No me hagas pensar. Una aproximación a la usabilidad en la web</h2>&nbsp;<b>15€</b>
-                        <h2>No me hagas pensar. Una aproximación a la usabilidad en la web</h2>&nbsp;<b>15€</b>
-                        <h2> me hagas pensar. Una aproximación a la usabilidad en la web</h2>&nbsp;<b>15€</b>
-                    </div>
-                    <h2>Total</h2>
+    <form accept-charset="UTF-8" action="/payment" class="require-validation"
+          data-cc-on-file="false"
+          data-stripe-publishable-key="pk_test_1oEBXV9O2Q3qeQ7tTj9DsbWP00QCTyMiT3"
+          id="payment-form" method="post">
+        {{ csrf_field() }}
+        <div class='form-row'>
+            <div class='col-xs-12 form-group required'>
+                <label class='control-label'>Name on Card</label> <input
+                        class='form-control' size='4' type='text'>
+            </div>
+        </div>
+        <div class='form-row'>
+            <div class='col-xs-12 form-group card required'>
+                <label class='control-label'>Card Number</label> <input
+                        autocomplete='off' class='form-control card-number' size='20'
+                        type='text'>
+            </div>
+        </div>
+        <div class='form-row'>
+            <div class='col-xs-4 form-group cvc required'>
+                <label class='control-label'>CVC</label> <input autocomplete='off'
+                                                                class='form-control card-cvc' placeholder='ex. 311' size='4'
+                                                                type='text'>
+            </div>
+            <div class='col-xs-4 form-group expiration required'>
+                <label class='control-label'>Expiration</label> <input
+                        class='form-control card-expiry-month' placeholder='MM' size='2'
+                        type='text'>
+            </div>
+            <div class='col-xs-4 form-group expiration required'>
+                <label class='control-label'> </label> <input
+                        class='form-control card-expiry-year' placeholder='YYYY' size='4'
+                        type='text'>
+            </div>
+        </div>
+        <div class='form-row'>
+            <div class='col-md-12'>
+                <div class='form-control total btn btn-info'>
+                    Total: <span class='amount'>$300</span>
                 </div>
             </div>
-            <p>Número de tarjeta</p>
-            <p>0000 0000 0000 0000</p>
-            <p>
-            <img src={{asset('assets_register/card-amex.svg')}} width="50" height="25">
-            <img src={{asset('assets_register/card-mastercard.svg')}} width="50" height="25">
-            <img src={{asset('assets_register/card-visa.svg')}} width="50" height="25">
-            </p>
-            <p>Fecha de caducidad   CVC</p>
-            <div class="row-md-3">
-           <p class="d-flex justify-content-center">
-               <input type="month" size="2" class="p-2">
-               <input type="number" min="19" size="2" class="p-2">
-               <input type="number"size="3" class="p-2">
-           </p>
-            </div>
-            <form action="" method="POST">
-                {{ csrf_field() }}
-                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                <script
-                        src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                        data-key="sk_test_a0REUpdIPJMIdTJI07s7oiIo00rLqpcFR4="
-                        data-amount="1500"
-                        data-name="Pago mensual"
-                        data-description="10.00 $ "
-                        data-image="https://stripe.com/img/documentation/checkout/marketplace.png">
-                </script>
-            </form>
         </div>
-    </div>
+        <div class='form-row'>
+            <div class='col-md-12 form-group'>
+                <button class='form-control btn btn-primary submit-button'
+                        type='submit' style="margin-top: 10px;">Pay »</button>
+            </div>
+        </div>
+        <div class='form-row'>
+            <div class='col-md-12 error form-group hide'>
+                <div class='alert-danger alert'>Please correct the errors and try
+                    again.</div>
+            </div>
+        </div>
+    </form>
+            @if ((Session::has('success-message')))
+                <div class="alert alert-success col-md-12">{{Session::get('success-message')}}</div>
+            @endif @if((Session::has('fail-message')))
+                <div class="alert alert-danger col-md-12">{{Session::get('fail-message')}}</div>
+            @endif
+        <script>
+            $(function() {
+                $('form.require-validation').bind('submit', function(e) {
+                    var form         = $(e.target).closest('form'),
+                        inputSelector = ['input[type=email]', 'input[type=password]',
+                            'input[type=text]', 'input[type=file]',
+                            'textarea'].join(', '),
+                        inputs       = $('form').find('.required').find(inputSelector),
+                        errorMessage = $('form').find('div.error'),
+                        valid         = true;
+
+                    errorMessage.addClass('hide');
+                    $('.has-error').removeClass('has-error');
+                    inputs.each(function(i, el) {
+                        var input = $(el);
+                        if (input.val() === '') {
+                            input.parent().addClass('has-error');
+                            errorMessage.removeClass('hide');
+                            e.preventDefault(); // cancel on first error
+                        }
+                    });
+                });
+
+                $('form').on('submit', function(e) {
+
+
+                    if (!$('form').data('cc-on-file')) {
+                        e.preventDefault();
+                    var stripe =  Stripe('pk_test_1oEBXV9O2Q3qeQ7tTj9DsbWP00QCTyMiT3');
+                        stripe.createToken({
+                            number: $('.card-number').val(),
+                            cvc: $('.card-cvc').val(),
+                            exp_month: $('.card-expiry-month').val(),
+                            exp_year: $('.card-expiry-year').val()
+                        }, stripeResponseHandler);
+                    }
+                });
+                function stripeResponseHandler(status, response) {
+                    if (response.error) {
+                        $('.error')
+                            .removeClass('hide')
+                            .find('.alert')
+                            .text(response.error.message);
+                    } else {
+                        // token contains id, last4, and card type
+                        var token = response['id'];
+                        // insert the token into the form so it gets submitted to the server
+                        $('form').find('input[type=text]').empty();
+                        $('form').append("<input type='hidden' name='reservation[stripe_token]' value='" + token + "'/>");
+                        $('form').get(0).submit();
+                    }
+                }
+            });
+
+        </script>
 
 @endsection
