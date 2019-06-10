@@ -23,7 +23,7 @@ Route::get('/home', function () {
 });
 
 Route::get('payment', 'HomeController@payment');
-Route::post ( 'payment/', function (Request $request) {
+Route::post ( 'payment', function (Request $request) {
     Stripe\Stripe::setApiKey ( 'test_SecretKey' );
     try {
         Stripe\Charge::create ( array (
