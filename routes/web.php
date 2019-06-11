@@ -23,7 +23,7 @@ Route::get('/home', function () {
 });
 
 Route::get('payment', 'HomeController@payment');
-Route::post ( 'payment', function (Request $request) {
+Route::post ( 'payment/', function (Request $request) {
     Stripe\Stripe::setApiKey ( 'test_SecretKey' );
     try {
         Stripe\Charge::create ( array (
@@ -33,10 +33,11 @@ Route::post ( 'payment', function (Request $request) {
             "description" => "Test payment."
         ) );
         Session::flash ( 'success-message', 'Payment done successfully !' );
-        return Redirect::back ();
+       // return Redirect::back ();
+        return redirect()->route('home');
     } catch ( Exception $e ) {
         Session::flash ( 'fail-message', "Error! Please Try again." );
-        return Redirect::back ();
+        return redirect()->route('home');
     }
 } );
 //Route::post('payment', 'HomeController@subscription');

@@ -41,7 +41,7 @@
                               data-stripe-publishable-key="pk_test_1oEBXV9O2Q3qeQ7tTj9DsbWP00QCTyMiT3"
                               id="payment-form" method="post">
                             {{ csrf_field() }}
-                            {{-- <div class='form-row'>
+                           {{--  <div class='form-row'>
                                  <div class='col-xs-12 form-group required'>
                                      <label class='control-label'>Name on Card</label> <input
                                              class='form-control' size='4' type='text'>
@@ -81,7 +81,7 @@
                                                                                     type='text'>
                                 </div>
                             </div>
-                            {{--    <div class='form-row'>
+                              {{--  <div class='form-row'>
                                     <div class='col-md-12'>
                                         <div class='form-control total btn btn-info'>
                                             Total: <span class='amount'>$300</span>
@@ -108,7 +108,10 @@
                         @endif @if((Session::has('fail-message')))
                             <div class="alert alert-danger col-md-12">{{Session::get('fail-message')}}</div>
                         @endif
+                        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+                        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
                         <script>
+
                             $(function () {
                                 $('form.require-validation').bind('submit', function (e) {
                                     var form = $(e.target).closest('form'),
